@@ -1,0 +1,60 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 600px;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    width: 100%;
+}
+/* New sections for navigation */
+.nav-section {
+    margin: 2rem 0;
+    padding: 2rem;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-section:hover {
+    transform: translateY(-5px);
+    background-color: #646468;
+}
+
+/* Icon styling */
+.nav-section i {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Icon hover effect */
+.nav-section:hover i {
+    color: #f8f67c; /* Change to a custom color on hover */
+    transform: scale(1.2); /* Slightly increase size on hover */
+}
+
+/* Style for headings within sections */
+.nav-section h5 {
+    color: #333;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for heading text */
+.nav-section:hover h5 {
+    color: #17a2b8;
+}
