@@ -262,20 +262,18 @@ const Exam = mongoose.model('Exam', examSchema);
   app.use(bodyParser.urlencoded({ extended: false }));
   
   // Route to serve the exam page
-  app.get('/exam', async (req, res) => {
+app.get('/exam', async (req, res) => {
     try {
       const { email } = req.query;
   
-      // Find student exam data by email and DOB
-      const exam = await Exam.findOne({ email});
+      // Find student exam data by email
+      const exam = await Exam.findOne({ email });
       if (!exam) {
         return res.status(404).send('Exam details not found.');
       }
   
-      // Generate dummy MCQs for the exam
-      const questions = generateQuestions(exam.courseName);
-  
-      res.render('exam', { exam, questions });
+      // Render the exam page with student exam details
+      res.render('exam', { exam });
     } catch (err) {
       console.error(err);
       res.status(500).send('Server error.');
