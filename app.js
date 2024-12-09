@@ -261,26 +261,486 @@ const Exam = mongoose.model('Exam', examSchema);
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(bodyParser.urlencoded({ extended: false }));
   
-  // Route to serve the exam page
-app.get('/exam', async (req, res) => {
+  const mcqData = {
+    "UI/UX Designing": [
+        {
+            "question": "What does UI stand for?",
+            "options": ["User Interface", "User Interaction", "Unique Interface", "Universal Interaction"],
+            "correctAnswer": "User Interface"
+        },
+        {
+            "question": "Which tool is commonly used for UI/UX design?",
+            "options": ["Adobe XD", "MySQL", "Git", "Docker"],
+            "correctAnswer": "Adobe XD"
+        },
+        {
+            "question": "What does UX stand for?",
+            "options": ["User Experience", "Universal Experience", "User Extension", "Unique Experience"],
+            "correctAnswer": "User Experience"
+        },
+        {
+            "question": "Which is a key principle of UX design?",
+            "options": ["Accessibility", "Compilation", "Automation", "Randomization"],
+            "correctAnswer": "Accessibility"
+          },
+          {
+            "question": "Which software is used for wireframing?",
+            "options": ["Figma", "Excel", "Photoshop", "Notepad"],
+            "correctAnswer": "Figma"
+          },
+          {
+            "question": "Which methodology focuses on creating a prototype?",
+            "options": ["Design Thinking", "Agile Development", "SCRUM", "DevOps"],
+            "correctAnswer": "Design Thinking"
+          },
+          {
+            "question": "What does the term 'responsive design' mean?",
+            "options": [
+              "Adapts to different devices",
+              "Loads faster on browsers",
+              "Has fixed dimensions",
+              "Uses only text content"
+            ],
+            "correctAnswer": "Adapts to different devices"
+          },
+          {
+            "question": "What is the main purpose of user personas?",
+            "options": [
+              "To represent target users",
+              "To create backend architecture",
+              "To define color palettes",
+              "To ensure code security"
+            ],
+            "correctAnswer": "To represent target users"
+          },
+          {
+            "question": "Which color model is used for web design?",
+            "options": ["RGB", "CMYK", "LAB", "HSB"],
+            "correctAnswer": "RGB"
+          },
+          {
+            "question": "What is the purpose of usability testing?",
+            "options": [
+              "To evaluate user interaction with a product",
+              "To test backend performance",
+              "To check application scalability",
+              "To design UI animations"
+            ],
+            "correctAnswer": "To evaluate user interaction with a product"
+          },
+          {
+            "question": "Which of the following is a type of navigation design?",
+            "options": ["Breadcrumb", "Color Palette", "Typography", "Wireframe"],
+            "correctAnswer": "Breadcrumb"
+          },
+          {
+            "question": "What is a wireframe?",
+            "options": [
+              "A basic layout design",
+              "A detailed high-fidelity design",
+              "A type of backend algorithm",
+              "A graphic design tool"
+            ],
+            "correctAnswer": "A basic layout design"
+          },
+          {
+            "question": "Which font type is best for readability in UI?",
+            "options": ["Sans-serif", "Cursive", "Monospace", "Script"],
+            "correctAnswer": "Sans-serif"
+          },
+          {
+            "question": "What is the main focus of UI design?",
+            "options": ["Visual elements", "Data security", "API development", "Algorithm optimization"],
+            "correctAnswer": "Visual elements"
+          },
+          {
+            "question": "What is a prototype in UX design?",
+            "options": [
+              "A functional sample of the product",
+              "A coding standard",
+              "A type of software framework",
+              "A marketing strategy"
+            ],
+            "correctAnswer": "A functional sample of the product"
+          },
+          {
+            "question": "Which is NOT a UI design tool?",
+            "options": ["Sketch", "Figma", "Git", "Adobe XD"],
+            "correctAnswer": "Git"
+          },
+          {
+            "question": "What is the purpose of a style guide in UI/UX design?",
+            "options": [
+              "To maintain design consistency",
+              "To store user data",
+              "To generate backend code",
+              "To analyze market trends"
+            ],
+            "correctAnswer": "To maintain design consistency"
+          },
+          {
+            "question": "What does the term 'A/B testing' refer to?",
+            "options": [
+              "Comparing two design variations",
+              "Creating animations",
+              "Testing API endpoints",
+              "Building wireframes"
+            ],
+            "correctAnswer": "Comparing two design variations"
+          },
+          {
+            "question": "Which term describes user interactions with a product?",
+            "options": ["User Journey", "Backend Flow", "API Call", "Data Mining"],
+            "correctAnswer": "User Journey"
+          },
+          {
+            "question": "What is the primary goal of UX design?",
+            "options": [
+              "To improve user satisfaction",
+              "To create dynamic APIs",
+              "To write efficient algorithms",
+              "To enhance server performance"
+            ],
+            "correctAnswer": "To improve user satisfaction"
+          },
+          {
+            "question": "What is the importance of a grid system in UI design?",
+            "options": [
+              "Ensures alignment and consistency",
+              "Adds interactivity",
+              "Optimizes database structure",
+              "Improves server speed"
+            ],
+            "correctAnswer": "Ensures alignment and consistency"
+          },
+          {
+            "question": "Which file format is commonly used for exporting UI designs?",
+            "options": ["SVG", "SQL", "XML", "JSON"],
+            "correctAnswer": "SVG"
+          },
+          {
+            "question": "What is the use of a mood board in design?",
+            "options": [
+              "To gather visual inspiration",
+              "To debug software",
+              "To store user data",
+              "To create algorithms"
+            ],
+            "correctAnswer": "To gather visual inspiration"
+          },
+          {
+            "question": "What is an example of a call-to-action (CTA)?",
+            "options": [
+              "'Sign Up Now' button",
+              "'Terms and Conditions' link",
+              "'User Profile' page",
+              "'Settings' menu"
+            ],
+            "correctAnswer": "'Sign Up Now' button"
+          },
+          {
+            "question": "Which is an example of microinteraction?",
+            "options": ["Button animation", "Website navigation", "API call", "Database query"],
+            "correctAnswer": "Button animation"
+          }
+    ],
+    "Java Programming": [
+        {
+            "question": "Which of the following is a valid Java keyword?",
+            "options": ["static", "integer", "function", "none"],
+            "correctAnswer": "static"
+        },
+        {
+            "question": "What is the default value of an int variable in Java?",
+            "options": ["0", "null", "undefined", "1"],
+            "correctAnswer": "0"
+        },
+        {
+            "question": "Which method is used to start a Java application?",
+            "options": ["main()", "start()", "run()", "execute()"],
+            "correctAnswer": "main()"
+        },
+        {
+            "question": "Which of these is NOT a Java access modifier?",
+            "options": ["public", "protected", "private", "default"],
+            "correctAnswer": "default"
+          },
+          {
+            "question": "Which keyword is used to inherit a class in Java?",
+            "options": ["extends", "implements", "inherits", "super"],
+            "correctAnswer": "extends"
+          },
+          {
+            "question": "What is the size of a byte in Java?",
+            "options": ["8 bits", "16 bits", "32 bits", "64 bits"],
+            "correctAnswer": "8 bits"
+          },
+          {
+            "question": "What is the result of 9/2 in Java?",
+            "options": ["4", "4.5", "5", "None"],
+            "correctAnswer": "4"
+          },
+          {
+            "question": "Which of these is used to handle exceptions in Java?",
+            "options": ["try-catch", "if-else", "switch-case", "loop"],
+            "correctAnswer": "try-catch"
+          },
+          {
+            "question": "What does the keyword 'final' mean in Java?",
+            "options": [
+              "Cannot be modified",
+              "Runs indefinitely",
+              "Indicates the end of a loop",
+              "Used for garbage collection"
+            ],
+            "correctAnswer": "Cannot be modified"
+          },
+          {
+            "question": "Which of these is a superclass for all exceptions in Java?",
+            "options": ["Throwable", "Error", "Exception", "RuntimeException"],
+            "correctAnswer": "Throwable"
+          },
+          {
+            "question": "What is the default value of a boolean in Java?",
+            "options": ["false", "true", "0", "null"],
+            "correctAnswer": "false"
+          },
+          {
+            "question": "Which operator is used to concatenate strings in Java?",
+            "options": ["+", "&", "|", "*"],
+            "correctAnswer": "+"
+          },
+          {
+            "question": "Which loop executes at least once?",
+            "options": ["do-while", "while", "for", "foreach"],
+            "correctAnswer": "do-while"
+          },
+          {
+            "question": "What is the purpose of the 'this' keyword in Java?",
+            "options": [
+              "Refers to the current instance of a class",
+              "Refers to the superclass",
+              "Imports a package",
+              "None of the above"
+            ],
+            "correctAnswer": "Refers to the current instance of a class"
+          },
+          {
+            "question": "Which class is used to handle input/output in Java?",
+            "options": ["Scanner", "BufferedReader", "FileReader", "All of the above"],
+            "correctAnswer": "All of the above"
+          },
+          {
+            "question": "Which statement is used to stop a loop prematurely?",
+            "options": ["break", "stop", "exit", "terminate"],
+            "correctAnswer": "break"
+          },
+          {
+            "question": "What is garbage collection in Java?",
+            "options": [
+              "Reclaiming unused memory",
+              "Deleting files",
+              "Removing errors",
+              "Optimizing CPU usage"
+            ],
+            "correctAnswer": "Reclaiming unused memory"
+          },
+          {
+            "question": "Which package contains the String class?",
+            "options": ["java.lang", "java.util", "java.io", "java.text"],
+            "correctAnswer": "java.lang"
+          },
+          {
+            "question": "Which keyword is used to declare an interface?",
+            "options": ["interface", "class", "abstract", "implements"],
+            "correctAnswer": "interface"
+          },
+          {
+            "question": "Which of the following is a wrapper class in Java?",
+            "options": ["Integer", "int", "float", "None"],
+            "correctAnswer": "Integer"
+          },
+          {
+            "question": "What is the purpose of the 'super' keyword in Java?",
+            "options": [
+              "Refers to the parent class",
+              "Refers to the current object",
+              "Creates a new object",
+              "None of the above"
+            ],
+            "correctAnswer": "Refers to the parent class"
+          },
+          {
+            "question": "Which of these is a valid constructor in Java?",
+            "options": ["MyClass()", "void MyClass()", "int MyClass()", "All of the above"],
+            "correctAnswer": "MyClass()"
+          },
+          {
+            "question": "Which of these is a marker interface?",
+            "options": ["Serializable", "Cloneable", "Both", "None"],
+            "correctAnswer": "Both"
+          },
+          {
+            "question": "What does the 'static' keyword mean in Java?",
+            "options": [
+              "Belongs to the class rather than an instance",
+              "Cannot be modified",
+              "Indicates a loop",
+              "None of the above"
+            ],
+            "correctAnswer": "Belongs to the class rather than an instance"
+          },
+          {
+            "question": "Which method is used to convert a string to uppercase?",
+            "options": ["toUpperCase()", "upperCase()", "convertUpper()", "None"],
+            "correctAnswer": "toUpperCase()"
+          }
+    ]
+};
+
+  // Exam page with MCQs based on course
+app.get("/exam", async (req, res) => {
+    const { email } = req.query;
+
     try {
-      const { email } = req.query;
-  
-      // Find student exam data by email
-      const exam = await Exam.findOne({ email });
-      if (!exam) {
-        return res.status(404).send('Exam details not found.');
-      }
-  
-      // Render the exam page with student exam details
-      res.render('exam', { exam });
+        // Fetch student exam details using email from the Exam collection
+        const student = await Exam.findOne({ email });
+        
+        if (!student) {
+            return res.status(404).send("Student exam details not found.");
+        }
+
+        console.log("Student course name:", student.courseName);
+
+        // Fetch MCQs for the student's course from the hard-coded mcqData object
+        const mcqQuestions = mcqData[student.courseName] || [];
+
+        if (mcqQuestions.length === 0) {
+            return res.status(404).send("MCQ data not found for the course.");
+        }
+
+        // Render the exam page with student details and MCQs
+        res.render("exam", { exam: student, mcqData: { questions: mcqQuestions } });
+
     } catch (err) {
-      console.error(err);
-      res.status(500).send('Server error.');
+        console.error("Error fetching student exam or MCQs:", err);
+        res.status(500).send("Server error.");
     }
-  });
-  
-  
+});
+
+
+// Add middleware to parse JSON
+app.use(bodyParser.json());
+app.use(express.json());
+
+// Route to handle exam submission
+app.post("/submitExam", async (req, res) => {
+    const answers = req.body; // This will contain the answers submitted by the student
+    console.log("Student answers:", answers); // Log the submitted answers
+
+    const courseName = answers.courseName; // Ensure courseName is passed along with the form
+    console.log("Student course name:", courseName); // Log the student's course name
+
+    if (!mcqData[courseName]) {
+        return res.status(400).send("Invalid course name.");
+    }
+
+    const mcqQuestions = mcqData[courseName];
+    let score = 0;
+
+    // Evaluate the answers
+    for (let [questionKey, answer] of Object.entries(answers)) {
+        if (questionKey.startsWith("question")) {
+            const questionIndex = parseInt(questionKey.replace("question", ""));
+            if (
+                mcqQuestions[questionIndex] &&
+                mcqQuestions[questionIndex].correctAnswer === answer
+            ) {
+                score += 2; // Each correct answer gives 2 marks
+            }
+        }
+    }
+
+    console.log(`Score calculated for course "${courseName}": ${score}`); // Log the course name and final score
+
+    // Render the response as an HTML page
+    const totalMarks = mcqQuestions.length * 2;
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Score</title>
+            <style>
+                body {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                }
+                .popup {
+                    position: relative;
+                    width: 300px;
+                    padding: 20px;
+                    text-align: center;
+                    background: #fff;
+                    border: 2px solid #ffc107;
+                    border-radius: 10px;
+                    animation: boom 0.5s ease-out;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+                @keyframes boom {
+                    0% {
+                        transform: scale(0.5);
+                        opacity: 0.5;
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+                .score {
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin: 10px 0;
+                }
+                .total {
+                    font-size: 18px;
+                    color: #555;
+                }
+                .btn {
+                    display: inline-block;
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    color: #fff;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-size: 16px;
+                }
+                .btn:hover {
+                    background-color: #0056b3;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="popup">
+                <h2>Exam Results</h2>
+                <div class="score">You scored ${score} out of ${totalMarks}</div>
+                <div class="total">Great job!</div>
+                <a class="btn">Press Back Button to Return</a>
+            </div>
+        </body>
+        </html>
+    `);
+});
+
+
+
 // Start server
 app.listen(3000, () => {
     console.log("Server is running on http://localhost:3000");
